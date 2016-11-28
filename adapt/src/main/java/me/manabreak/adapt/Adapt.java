@@ -2,6 +2,7 @@ package me.manabreak.adapt;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
 
-    private final List items = new ArrayList<>();
+    private final List<Object> items = new ArrayList<Object>();
     private final SparseArray<Class> bindRules = new SparseArray<>();
     private final Map<Class, Integer> typesToLayouts = new HashMap<>();
 
@@ -105,6 +106,11 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
 
         void bind(T item) {
             rule.bind(item);
+        }
+
+        @VisibleForTesting
+        R getBindRule() {
+            return rule;
         }
     }
 }
