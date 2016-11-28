@@ -57,6 +57,7 @@ adapter.notifyDataSetChanged();
 You can find a complete example 
 [here](https://github.com/manabreak/adapt/blob/master/app/src/main/java/me/manabreak/adapt_dev/MainActivity.java).
 
+
 ## Why Adapt?
 
 When writing adapters, you'll soon notice you're
