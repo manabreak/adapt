@@ -5,7 +5,23 @@ of items in a single list out-of-the-box.
 
 ## Install
 
-TODO: Add to a repository for easy import.
+In your repositories, add the following:
+
+```
+repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+}
+```
+
+To get the latest, bleeding-edge version, add this
+to your dependencies:
+
+```
+dependencies {
+    compile 'com.github.manabreak:adapt:-SNAPSHOT'
+}
+```
 
 ## Usage
 
