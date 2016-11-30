@@ -1,5 +1,6 @@
 package me.manabreak.adapt;
 
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class AdaptTest {
 
@@ -58,5 +60,28 @@ public class AdaptTest {
     public void testNoItemTypes() {
         LinearLayout parent = new LinearLayout(InstrumentationRegistry.getContext());
         a.onCreateViewHolder(parent, 123);
+    }
+
+    @Test
+    public void testOnClick() {
+        final boolean[] clicked = new boolean[]{false};
+        final String[] s = new String[]{null};
+
+        int layout = android.R.layout.simple_list_item_1;
+        a.addType(layout, String.class, StringRule.class);
+        a.onClick(String.class, new OnClick<String>() {
+            @Override
+            public void onClick(@NonNull String item) {
+                clicked[0] = true;
+                s[0] = item;
+            }
+        });
+
+        Adapt.ViewHolder vh = a.onCreateViewHolder(new LinearLayout(InstrumentationRegistry.getContext()), layout);
+        vh.bind("Foo");
+        vh.itemView.callOnClick();
+
+        assertTrue(clicked[0]);
+        assertEquals("Foo", s[0]);
     }
 }

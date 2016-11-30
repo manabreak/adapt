@@ -1,11 +1,14 @@
 package me.manabreak.adapt_dev;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import me.manabreak.adapt.Adapt;
+import me.manabreak.adapt.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +25,14 @@ public class MainActivity extends AppCompatActivity {
         Adapt a = new Adapt();
         a.addType(R.layout.string_item, String.class, StringRule.class);
         a.addType(R.layout.complex_item, ComplexItem.class, ComplexRule.class);
+        a.onClick(String.class, new OnClick<String>() {
+            public static final String TAG = "OnClick";
+
+            @Override
+            public void onClick(@NonNull String item) {
+                Log.d(TAG, "onClick: " + item);
+            }
+        });
         r.setAdapter(a);
 
         // Add some items

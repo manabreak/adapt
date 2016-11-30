@@ -23,7 +23,9 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
 
     private final List<Object> items = new ArrayList<Object>();
     private final SparseArray<Class> bindRules = new SparseArray<>();
+    private final SparseArray<Class> layoutsToTypes = new SparseArray<>();
     private final Map<Class, Integer> typesToLayouts = new HashMap<>();
+    private final Map<Class, OnClick> onClicks = new HashMap<>();
 
     /**
      * Adds a new type to this adapter.
@@ -41,6 +43,7 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
     public <R extends BindRule<T>, T> Adapt addType(@LayoutRes int layout, @NonNull Class<T> clazz, @NonNull Class<R> rule) {
         bindRules.put(layout, rule);
         typesToLayouts.put(clazz, layout);
+        layoutsToTypes.put(layout, clazz);
         return this;
     }
 
@@ -58,7 +61,7 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
         if (ruleClass != null) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
             //noinspection unchecked
-            return new ViewHolder<>(itemView, ruleClass);
+            return new ViewHolder<>(itemView, ruleClass, layoutsToTypes.get(viewType));
         }
         throw new IllegalStateException("No rules added for viewType " + viewType);
     }
@@ -154,17 +157,31 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
     }
 
     /**
+     * Sets an OnClick listener for the given type.
+     *
+     * @param clazz   type of the item
+     * @param onClick callback to invoke when the item is clicked
+     * @param <T>     Type of the item
+     */
+    public <T> void onClick(@NonNull Class<T> clazz, @NonNull OnClick<T> onClick) {
+        onClicks.put(clazz, onClick);
+    }
+
+    /**
      * The single view holder class used with this adapter.
      *
      * @param <R> Type of the BindRule
      * @param <T> Type of the item
      */
-    class ViewHolder<R extends BindRule<T>, T> extends RecyclerView.ViewHolder {
+    class ViewHolder<R extends BindRule<T>, T> extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final R rule;
+        @NonNull private final Class<T> itemClass;
+        private T boundItem = null;
 
-        ViewHolder(@NonNull View itemView, @NonNull Class<R> ruleClass) {
+        ViewHolder(@NonNull View itemView, @NonNull Class<R> ruleClass, @NonNull Class<T> itemClass) {
             super(itemView);
+            this.itemClass = itemClass;
             R rule = null;
             try {
                 rule = ruleClass.newInstance();
@@ -178,9 +195,11 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
             if (rule == null) throw new IllegalStateException("Rule is null");
             this.rule = rule;
             this.rule.init();
+            itemView.setOnClickListener(this);
         }
 
         void bind(T item) {
+            boundItem = item;
             rule.bind(item);
         }
 
@@ -194,6 +213,14 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
         @VisibleForTesting
         R getBindRule() {
             return rule;
+        }
+
+        @Override
+        public void onClick(@NonNull View view) {
+            if (onClicks.containsKey(itemClass)) {
+                //noinspection unchecked
+                onClicks.get(itemClass).onClick(boundItem);
+            }
         }
     }
 }
