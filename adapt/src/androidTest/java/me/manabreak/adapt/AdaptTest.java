@@ -10,7 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -83,5 +83,25 @@ public class AdaptTest {
 
         assertTrue(clicked[0]);
         assertEquals("Foo", s[0]);
+    }
+
+    @Test
+    public void testOnItemBound() {
+        int layout = android.R.layout.simple_list_item_1;
+        a.addType(layout, String.class, StringRule.class);
+
+        final String[] boundItem = new String[]{null};
+        OnItemBoundCallback<String> callback = new OnItemBoundCallback<String>() {
+            @Override
+            public void itemBound(@NonNull String item) {
+                boundItem[0] = item;
+            }
+        };
+
+        a.onItemBound(String.class, callback);
+
+        Adapt.ViewHolder vh = a.onCreateViewHolder(new LinearLayout(InstrumentationRegistry.getContext()), layout);
+        vh.bind("Foo");
+        assertEquals("Foo", boundItem[0]);
     }
 }

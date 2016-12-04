@@ -21,11 +21,12 @@ import java.util.Map;
  */
 public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
 
-    private final List<Object> items = new ArrayList<Object>();
+    private final List<Object> items = new ArrayList<>();
     private final SparseArray<Class> bindRules = new SparseArray<>();
     private final SparseArray<Class> layoutsToTypes = new SparseArray<>();
     private final Map<Class, Integer> typesToLayouts = new HashMap<>();
     private final Map<Class, OnClick> onClicks = new HashMap<>();
+    private final Map<Class, OnItemBoundCallback> onBounds = new HashMap<>();
 
     /**
      * Adds a new type to this adapter.
@@ -167,6 +168,10 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
         onClicks.put(clazz, onClick);
     }
 
+    public void onItemBound(@NonNull Class<String> clazz, @NonNull OnItemBoundCallback<String> callback) {
+        onBounds.put(clazz, callback);
+    }
+
     /**
      * The single view holder class used with this adapter.
      *
@@ -201,6 +206,10 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
         void bind(T item) {
             boundItem = item;
             rule.bind(item);
+            if (onBounds.containsKey(itemClass)) {
+                //noinspection unchecked
+                onBounds.get(itemClass).itemBound(item);
+            }
         }
 
         /**
