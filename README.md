@@ -14,6 +14,15 @@ repositories {
 }
 ```
 
+To get the latest stable release, add this to your
+dependencies:
+
+```
+dependencies {
+    compile 'com.github.manabreak:adapt:1.0'
+}
+```
+
 To get the latest, bleeding-edge version, add this
 to your dependencies:
 
