@@ -168,7 +168,7 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
         onClicks.put(clazz, onClick);
     }
 
-    public void onItemBound(@NonNull Class<String> clazz, @NonNull OnItemBoundCallback<String> callback) {
+    public <T> void onItemBound(@NonNull Class<T> clazz, @NonNull OnItemBoundCallback<T> callback) {
         onBounds.put(clazz, callback);
     }
 
