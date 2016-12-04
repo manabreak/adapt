@@ -91,9 +91,9 @@ public class AdaptTest {
         a.addType(layout, String.class, StringRule.class);
 
         final String[] boundItem = new String[]{null};
-        OnItemBoundCallback<String> callback = new OnItemBoundCallback<String>() {
+        OnItemBoundCallback<String, StringRule> callback = new OnItemBoundCallback<String, StringRule>() {
             @Override
-            public void itemBound(@NonNull String item) {
+            public void itemBound(@NonNull StringRule rule, @NonNull String item) {
                 boundItem[0] = item;
             }
         };

@@ -168,7 +168,7 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
         onClicks.put(clazz, onClick);
     }
 
-    public <T> void onItemBound(@NonNull Class<T> clazz, @NonNull OnItemBoundCallback<T> callback) {
+    public <S extends BindRule<T>, T> void onItemBound(@NonNull Class<T> clazz, @NonNull OnItemBoundCallback<T, S> callback) {
         onBounds.put(clazz, callback);
     }
 
@@ -208,7 +208,7 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
             rule.bind(item);
             if (onBounds.containsKey(itemClass)) {
                 //noinspection unchecked
-                onBounds.get(itemClass).itemBound(item);
+                onBounds.get(itemClass).itemBound(rule, item);
             }
         }
 
