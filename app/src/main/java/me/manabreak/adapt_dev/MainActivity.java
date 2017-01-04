@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
         Adapt a = new Adapt();
         a.addType(R.layout.string_item, String.class, StringRule.class);
         a.addType(R.layout.complex_item, ComplexItem.class, ComplexRule.class);
-        a.onClick(String.class, new OnClick<String>() {
+        a.onClick(String.class, new OnClick<StringRule, String>() {
             public static final String TAG = "OnClick";
 
             @Override
-            public void onClick(me.manabreak.adapt.R rule, @NonNull String item) {
+            public void onClick(StringRule rule, @NonNull String item) {
                 Log.d(TAG, "onClick: " + item);
             }
         });
