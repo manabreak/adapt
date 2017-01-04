@@ -69,9 +69,9 @@ public class AdaptTest {
 
         int layout = android.R.layout.simple_list_item_1;
         a.addType(layout, String.class, StringRule.class);
-        a.onClick(String.class, new OnClick<String>() {
+        a.onClick(String.class, new OnClick<StringRule, String>() {
             @Override
-            public void onClick(@NonNull String item) {
+            public void onClick(@NonNull StringRule rule, @NonNull String item) {
                 clicked[0] = true;
                 s[0] = item;
             }
@@ -83,6 +83,17 @@ public class AdaptTest {
 
         assertTrue(clicked[0]);
         assertEquals("Foo", s[0]);
+    }
+
+    @Test
+    public void testGetItemAtPosition() {
+        a.add("Foo");
+        a.add(123);
+
+        String foo = a.get(0);
+        int i = a.get(1);
+        assertEquals("Foo", foo);
+        assertEquals(123, i);
     }
 
     @Test

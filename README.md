@@ -19,7 +19,7 @@ dependencies:
 
 ```
 dependencies {
-    compile 'com.github.manabreak:adapt:1.1'
+    compile 'com.github.manabreak:adapt:1.2'
 }
 ```
 

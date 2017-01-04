@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public static final String TAG = "OnClick";
 
             @Override
-            public void onClick(@NonNull String item) {
+            public void onClick(me.manabreak.adapt.R rule, @NonNull String item) {
                 Log.d(TAG, "onClick: " + item);
             }
         });

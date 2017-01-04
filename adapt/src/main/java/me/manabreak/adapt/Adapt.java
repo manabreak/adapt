@@ -164,12 +164,30 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
      * @param onClick callback to invoke when the item is clicked
      * @param <T>     Type of the item
      */
-    public <T> void onClick(@NonNull Class<T> clazz, @NonNull OnClick<T> onClick) {
+    public <R extends BindRule<T>, T> void onClick(@NonNull Class<T> clazz, @NonNull OnClick<R, T> onClick) {
         onClicks.put(clazz, onClick);
     }
 
     public <S extends BindRule<T>, T> void onItemBound(@NonNull Class<T> clazz, @NonNull OnItemBoundCallback<T, S> callback) {
         onBounds.put(clazz, callback);
+    }
+
+    /**
+     * Retrieves an item in the given position.
+     * <p>
+     * The type of the item in the given position is not
+     * guaranteed to be the same as the return type - it is
+     * merely casted. Care should be taken when retrieving items
+     * from the adapter using this method.
+     *
+     * @param i   position
+     * @param <T> Type of the item
+     * @return The item at position
+     */
+    @NonNull
+    public <T> T get(int i) {
+        //noinspection unchecked
+        return (T) items.get(i);
     }
 
     /**
@@ -228,7 +246,7 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
         public void onClick(@NonNull View view) {
             if (onClicks.containsKey(itemClass)) {
                 //noinspection unchecked
-                onClicks.get(itemClass).onClick(boundItem);
+                onClicks.get(itemClass).onClick(rule, boundItem);
             }
         }
     }
