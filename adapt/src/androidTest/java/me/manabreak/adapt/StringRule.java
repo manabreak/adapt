@@ -9,7 +9,7 @@ public class StringRule extends BindRule<String> {
 
     @Override
     public void init() {
-        text = (TextView) itemView.findViewById(android.R.id.text1);
+        text = find(android.R.id.text1);
     }
 
     @Override

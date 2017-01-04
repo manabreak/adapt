@@ -168,6 +168,14 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
         onClicks.put(clazz, onClick);
     }
 
+    /**
+     * Sets a callback to invoke whenever an item of the given type is bound.
+     *
+     * @param clazz    type of the item
+     * @param callback to invoke
+     * @param <S>      Type of the bind rule
+     * @param <T>      Type of the item
+     */
     public <S extends BindRule<T>, T> void onItemBound(@NonNull Class<T> clazz, @NonNull OnItemBoundCallback<T, S> callback) {
         onBounds.put(clazz, callback);
     }

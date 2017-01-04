@@ -1,5 +1,6 @@
 package me.manabreak.adapt;
 
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -46,4 +47,16 @@ public abstract class BindRule<T> {
      * @param item to bind
      */
     public abstract void bind(@NonNull T item);
+
+    /**
+     * Shorthand helper to initialize views.
+     *
+     * @param id  of the view
+     * @param <V> Type of the view
+     * @return View
+     */
+    protected <V> V find(@IdRes int id) {
+        //noinspection unchecked
+        return (V) itemView.findViewById(id);
+    }
 }

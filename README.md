@@ -19,7 +19,7 @@ dependencies:
 
 ```
 dependencies {
-    compile 'com.github.manabreak:adapt:1.2'
+    compile 'com.github.manabreak:adapt:1.2.1'
 }
 ```
 
@@ -112,7 +112,7 @@ Great! Use the issues page to suggest new features.
 
 MIT License
 
-Copyright (c) 2016 manabreak
+Copyright (c) 2016-2017 manabreak
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
