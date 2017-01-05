@@ -97,7 +97,10 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
      */
     @Override
     public int getItemViewType(int position) {
-        return typesToLayouts.get(items.get(position).getClass());
+        Object o = items.get(position);
+        if (o == null) throw new IllegalStateException("Item at index " + position + " is null!");
+
+        return typesToLayouts.get(o.getClass());
     }
 
     /**
