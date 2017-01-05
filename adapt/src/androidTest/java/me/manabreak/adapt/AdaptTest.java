@@ -124,4 +124,17 @@ public class AdaptTest {
         assertEquals(0, a.indexOf("Foo"));
         assertEquals(1, a.indexOf(123));
     }
+
+    @Test
+    public void testRemove() {
+        a.add("Foo");
+        a.add(123);
+
+        assertEquals(2, a.getItemCount());
+
+        a.remove(0);
+
+        assertEquals(1, a.getItemCount());
+        assertEquals(123, a.get(0));
+    }
 }

@@ -100,6 +100,15 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
     }
 
     /**
+     * Removes an item in the given index.
+     *
+     * @param index of the item to remove
+     */
+    public void remove(int index) {
+        items.remove(index);
+    }
+
+    /**
      * Retrieves the registered layout for the item at 'position'.
      *
      * @param position of the item
