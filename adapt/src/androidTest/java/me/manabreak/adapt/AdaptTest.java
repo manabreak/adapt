@@ -115,4 +115,13 @@ public class AdaptTest {
         vh.bind("Foo");
         assertEquals("Foo", boundItem[0]);
     }
+
+    @Test
+    public void testIndexOf() {
+        a.add("Foo");
+        a.add(123);
+
+        assertEquals(0, a.indexOf("Foo"));
+        assertEquals(1, a.indexOf(123));
+    }
 }

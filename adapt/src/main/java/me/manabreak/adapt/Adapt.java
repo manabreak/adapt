@@ -90,6 +90,16 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
     }
 
     /**
+     * Retrieves the index of the given object.
+     *
+     * @param o object
+     * @return index of the object, or -1 if object is not in the list.
+     */
+    public int indexOf(@NonNull Object o) {
+        return items.indexOf(o);
+    }
+
+    /**
      * Retrieves the registered layout for the item at 'position'.
      *
      * @param position of the item
