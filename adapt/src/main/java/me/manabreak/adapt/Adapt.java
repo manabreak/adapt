@@ -109,6 +109,16 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
     }
 
     /**
+     * Adds an item to the specified index.
+     *
+     * @param index to add the item to
+     * @param o     item to add
+     */
+    public void insert(int index, @NonNull Object o) {
+        items.add(index, o);
+    }
+
+    /**
      * Retrieves the registered layout for the item at 'position'.
      *
      * @param position of the item

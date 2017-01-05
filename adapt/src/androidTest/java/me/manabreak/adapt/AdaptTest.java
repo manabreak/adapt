@@ -137,4 +137,15 @@ public class AdaptTest {
         assertEquals(1, a.getItemCount());
         assertEquals(123, a.get(0));
     }
+
+    @Test
+    public void testInsert() {
+        a.add("A");
+        a.add("C");
+        a.insert(1, "B");
+
+        assertEquals("A", a.get(0));
+        assertEquals("B", a.get(1));
+        assertEquals("C", a.get(2));
+    }
 }
