@@ -99,8 +99,11 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
     public int getItemViewType(int position) {
         Object o = items.get(position);
         if (o == null) throw new IllegalStateException("Item at index " + position + " is null!");
-
-        return typesToLayouts.get(o.getClass());
+        if (typesToLayouts.containsKey(o.getClass())) {
+            return typesToLayouts.get(o.getClass());
+        } else {
+            throw new IllegalStateException("Class " + o.getClass().getSimpleName() + " not registered in the adapter");
+        }
     }
 
     /**
