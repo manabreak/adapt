@@ -234,6 +234,15 @@ public class Adapt extends RecyclerView.Adapter<Adapt.ViewHolder> {
     }
 
     /**
+     * Retrieves the raw list of items.
+     *
+     * @return list of items
+     */
+    public List getItems() {
+        return items;
+    }
+
+    /**
      * The single view holder class used with this adapter.
      *
      * @param <R> Type of the BindRule

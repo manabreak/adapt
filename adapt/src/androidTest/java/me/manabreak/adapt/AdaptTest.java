@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -147,5 +149,17 @@ public class AdaptTest {
         assertEquals("A", a.get(0));
         assertEquals("B", a.get(1));
         assertEquals("C", a.get(2));
+    }
+
+    @Test
+    public void testGetItems() {
+        a.add("A");
+        a.add(123);
+
+        List list = a.getItems();
+
+        assertEquals(2, list.size());
+        assertEquals("A", list.get(0));
+        assertEquals(123, list.get(1));
     }
 }
