@@ -19,7 +19,7 @@ dependencies:
 
 ```
 dependencies {
-    implementation 'com.github.manabreak:adapt:1.2.7'
+    implementation 'com.github.manabreak:adapt:1.2.8'
 }
 ```
 
