@@ -19,7 +19,7 @@ dependencies:
 
 ```
 dependencies {
-    compile 'com.github.manabreak:adapt:1.2.7'
+    implementation 'com.github.manabreak:adapt:1.2.7'
 }
 ```
 
@@ -28,7 +28,7 @@ to your dependencies:
 
 ```
 dependencies {
-    compile 'com.github.manabreak:adapt:-SNAPSHOT'
+    implementation 'com.github.manabreak:adapt:-SNAPSHOT'
 }
 ```
 
